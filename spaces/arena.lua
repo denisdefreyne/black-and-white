@@ -8,6 +8,7 @@ function Arena.new(entities)
   local systems = {
     InputSystem.new(entities),
     Engine.Systems.Rendering.new(entities),
+    Engine.Systems.Physics.new(entities),
   }
 
   return Engine.Space.new(entities, systems)

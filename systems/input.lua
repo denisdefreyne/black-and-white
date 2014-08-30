@@ -12,32 +12,53 @@ function Input.new(entities)
   return setmetatable({ entities = entities }, Input)
 end
 
+local function createBullet(entities, isBlack)
+  local whitePlayer = entities:firstWithComponent(Components.WhitePlayer)
+  local blackPlayer = entities:firstWithComponent(Components.BlackPlayer)
+
+  local whitePosition = whitePlayer:get(Engine.Components.Position)
+  local blackPosition = blackPlayer:get(Engine.Components.Position)
+
+  local position  = isBlack and blackPosition or whitePosition
+  local imagePath = isBlack and 'assets/bullet-black.png' or 'assets/bullet-white.png'
+  local xVelocity = isBlack and 1000 or -1000
+
+  local e = Engine.Entity.new()
+  e:add(Engine.Components.Position, position.x, position.y)
+  e:add(Engine.Components.Velocity, xVelocity, 0)
+  e:add(Engine.Components.Z, 1)
+  e:add(Engine.Components.Image, imagePath)
+  return e
+end
+
 local function shoot(entities)
+  entities:add(createBullet(entities, true))
+  entities:add(createBullet(entities, false))
 end
 
 function Input:update(dt)
   local whitePlayer = self.entities:firstWithComponent(Components.WhitePlayer)
   local blackPlayer = self.entities:firstWithComponent(Components.BlackPlayer)
 
-  local whitePos = whitePlayer:get(Engine.Components.Position)
-  local blackPos = blackPlayer:get(Engine.Components.Position)
+  local whitePosition = whitePlayer:get(Engine.Components.Position)
+  local blackPosition = blackPlayer:get(Engine.Components.Position)
 
   local speed = 600*dt
 
   local lk = love.keyboard
 
   if lk.isDown("up") then
-    whitePos.y = whitePos.y + speed
-    blackPos.y = blackPos.y - speed
+    whitePosition.y = whitePosition.y + speed
+    blackPosition.y = blackPosition.y - speed
   end
 
   if lk.isDown("down") then
-    whitePos.y = whitePos.y - speed
-    blackPos.y = blackPos.y + speed
+    whitePosition.y = whitePosition.y - speed
+    blackPosition.y = blackPosition.y + speed
   end
 
-  if lk.isDown("space") then
-    shoot(entities)
+  if lk.isDown(" ") then
+    shoot(self.entities)
   end
 end
 
