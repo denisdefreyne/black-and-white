@@ -37,7 +37,7 @@ local function createEnemy(isBlack)
   local animationImagePaths = isBlack and whiteAnimationImagePaths or blackAnimationImagePaths
 
   local xVelocity = isBlack and ENEMY_VELOCITY_X or -ENEMY_VELOCITY_X
-  local imagePath = isBlack and 'assets/enemy-white.png' or 'assets/enemy-black.png'
+  local imagePath = animationImagePaths[1]
 
   local x = isBlack and - ENEMY_OFFSET_X or love.window.getWidth() + ENEMY_OFFSET_X
   local y = ENEMY_OFFSET_Y + math.random() * (love.window.getHeight() - 2 * ENEMY_OFFSET_Y)
