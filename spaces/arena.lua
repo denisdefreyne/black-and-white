@@ -6,10 +6,12 @@ local InputSystem             = require('systems.input')
 local OffscreenSystem         = require('systems.offscreen')
 local EnemySpawner            = require('systems.enemy_spawner')
 local CollisionHandlingSystem = require('systems.collision_handling')
+local AnimationSystem         = require('systems.animation')
 
 function Arena.new(entities)
   local systems = {
     InputSystem.new(entities),
+    AnimationSystem.new(entities),
     OffscreenSystem.new(entities),
     EnemySpawner.new(entities),
     Engine.Systems.CollisionDetection.new(entities),
