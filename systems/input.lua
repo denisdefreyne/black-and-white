@@ -13,7 +13,7 @@ function Input.new(entities)
 end
 
 local BULLET_VELOCITY_X = 400
-local SCREEN_OFFSET = 50
+local SCREEN_OFFSET = 100
 
 local function createBullet(entities, isBlack)
   local animationImagePaths = {
@@ -70,16 +70,21 @@ function Input:update(dt)
   local whitePosition = whitePlayer:get(Engine.Components.Position)
   local blackPosition = blackPlayer:get(Engine.Components.Position)
 
-  local speed = 600*dt
+  local whiteVelocity = whitePlayer:get(Engine.Components.Velocity)
+  local blackVelocity = blackPlayer:get(Engine.Components.Velocity)
+
+  local rawSpeed = 600
+  local speed = rawSpeed*dt
 
   if love.keyboard.isDown("up") and blackPosition.y > SCREEN_OFFSET then
-    whitePosition.y = whitePosition.y + speed
-    blackPosition.y = blackPosition.y - speed
-  end
-
-  if love.keyboard.isDown("down") and whitePosition.y > SCREEN_OFFSET then
-    whitePosition.y = whitePosition.y - speed
-    blackPosition.y = blackPosition.y + speed
+    whiteVelocity.y = rawSpeed
+    blackVelocity.y = -rawSpeed
+  elseif love.keyboard.isDown("down") and whitePosition.y > SCREEN_OFFSET then
+    whiteVelocity.y = -rawSpeed
+    blackVelocity.y = rawSpeed
+  else
+    whiteVelocity.y = whiteVelocity.y * 0.8
+    blackVelocity.y = blackVelocity.y * 0.8
   end
 
   shoot(self.entities, whitePlayer, dt)
