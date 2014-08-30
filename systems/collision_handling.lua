@@ -62,12 +62,12 @@ function CollisionHandler:pairInteracts(a, b)
   return aIsBullet or bIsBullet
 end
 
-function addHitAnimation(x, y, entities)
+function addHitAnimation(isBig, x, y, entities)
   local imagePath = 'assets/bullet.png'
   local config = {
     position               = { 0, 0 },
     offset                 = { 0, 0 },
-    bufferSize             = 10,
+    bufferSize             = isBig and 400 or 10,
     emissionRate           = 100000,
     emitterLifetime        = 0.1,
     particleLifetime       = { 0.2, 1.0 },
@@ -101,13 +101,14 @@ end
 function CollisionHandler:singleDetected(entity, otherEntity)
   local position = entity:get(Engine.Components.Position)
 
-  addHitAnimation(position.x, position.y, self.entities)
-
   local health = entity:get(Components.Health)
   if not health then
+    addHitAnimation(false, position.x, position.y, self.entities)
     self.entities:remove(entity)
     return
   end
+
+  addHitAnimation(true, position.x, position.y, self.entities)
 
   health.cur = health.cur - 1
   if health.cur < 1 then
