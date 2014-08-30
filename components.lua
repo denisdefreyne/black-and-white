@@ -26,7 +26,7 @@ Components.Gun = {
 Components.EnemySpawner = {
   order  = 4,
   name   = 'Enemy spawner',
-  new    = function() return { maxCooldown = 3.0, curCooldown = 0 } end,
+  new    = function() return { maxCooldown = 3.0, curCooldown = 0, lifetime = 0 } end,
   format = function(self) return 'Yes' end,
 }
 

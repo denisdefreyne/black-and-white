@@ -61,6 +61,9 @@ end
 function EnemySpawner:updateEntity(entity, dt)
   local enemySpawnerComponent = entity:get(Components.EnemySpawner)
 
+  enemySpawnerComponent.lifetime = enemySpawnerComponent.lifetime + dt
+  enemySpawnerComponent.maxCooldown =  3.0 - math.log(1 + math.log(1 + enemySpawnerComponent.lifetime)) / 2
+
   if enemySpawnerComponent.curCooldown <= 0 then
     self.entities:add(createEnemy(true))
     self.entities:add(createEnemy(false))

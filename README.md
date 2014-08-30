@@ -23,5 +23,5 @@ Winning:
 Ideas for improvement:
 
 * Waves of enemies (sine curve)
-* Enemies come faster
+* [DONE] Enemies come faster
 * [DONE] Enemies move vertically
