@@ -2,12 +2,12 @@
 
 Steps:
 
-1. Two ships
-2. Ships moving in opposite directions
-3. Black/white background
+1. [DONE] Two ships
+2. [DONE] Ships moving in opposite directions
+3. [DONE] Black/white background
 4. Bullets
     1. Limit fire-rate
-    2. Destroy off-screen bullets
-
-* Enemies moving in from both directions
-* Collision detection and collision handling
+    2. [DONE] Destroy off-screen bullets
+5. Limit ship movement
+6. Enemies moving in from both directions
+7. Collision detection and collision handling
