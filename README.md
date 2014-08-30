@@ -10,8 +10,9 @@ Steps:
     2. [DONE] Destroy off-screen bullets
 5. [DONE] Limit ship movement
 6. [DONE] Enemies moving in from both directions
-7. Collision detection and collision handling
-8. Checking when enemies reach the other side
+7. [DONE] Collision detection and collision handling
+8. Animate
+9. Checking when enemies reach the other side
 
 Winning:
 
