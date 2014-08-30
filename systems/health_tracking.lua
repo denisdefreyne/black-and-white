@@ -21,15 +21,15 @@ function HealthTracking:updateEntity(entity, dt)
   local trackedEntityHealth = trackedEntity:get(Components.Health)
 
   if trackedEntityHealth.cur >= 5 then
-    imageComponent.path = 'assets/health-5.png'
+    imageComponent.path = 'assets/real/life_5.png'
   elseif trackedEntityHealth.cur >= 4 then
-    imageComponent.path = 'assets/health-4.png'
+    imageComponent.path = 'assets/real/life_4.png'
   elseif trackedEntityHealth.cur >= 3 then
-    imageComponent.path = 'assets/health-3.png'
+    imageComponent.path = 'assets/real/life_3.png'
   elseif trackedEntityHealth.cur >= 2 then
-    imageComponent.path = 'assets/health-2.png'
+    imageComponent.path = 'assets/real/life_2.png'
   elseif trackedEntityHealth.cur >= 1 then
-    imageComponent.path = 'assets/health-1.png'
+    imageComponent.path = 'assets/real/life_1.png'
   end
 end
 

@@ -66,13 +66,14 @@ local function createEnemySpawner()
 end
 
 local function createHealthBar(player, isBlack)
-  local x = isBlack and 120 or love.window.getWidth() - 120
-  local y = 50
+  local x = isBlack and 90 or love.window.getWidth() - 110
+  local y = 60
 
   local e = Engine.Entity.new()
   e:add(Engine.Components.Image, 'assets/health-10.png')
   e:add(Engine.Components.Position, x, y)
   e:add(Engine.Components.Z, 100)
+  e:add(Engine.Components.Scale, 0.8)
   e:add(Components.HealthTracking, player)
   return e
 end
