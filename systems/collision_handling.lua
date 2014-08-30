@@ -69,7 +69,7 @@ function addHitAnimation(isBig, x, y, entities)
     offset                 = { 0, 0 },
     bufferSize             = isBig and 400 or 10,
     emissionRate           = 100000,
-    emitterLifetime        = 0.1,
+    emitterLifetime        = isBig and 0.3 or 0.1,
     particleLifetime       = { 0.2, 1.0 },
     colors                 = {
                                255, 0, 0, 255,
