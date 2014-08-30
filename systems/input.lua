@@ -52,7 +52,7 @@ end
 local function shoot(entities, whitePlayer, dt)
   local gunComponent = whitePlayer:get(Components.Gun)
 
-  if gunComponent.curCooldown <= 0 then
+  if love.keyboard.isDown(" ") and gunComponent.curCooldown <= 0 then
     entities:add(createBullet(entities, true))
     entities:add(createBullet(entities, false))
 
@@ -60,6 +60,7 @@ local function shoot(entities, whitePlayer, dt)
   end
 
   gunComponent.curCooldown = gunComponent.curCooldown - dt
+  if gunComponent.curCooldown < 0 then gunComponent.curCooldown = 0 end
 end
 
 function Input:update(dt)
@@ -71,21 +72,17 @@ function Input:update(dt)
 
   local speed = 600*dt
 
-  local lk = love.keyboard
-
-  if lk.isDown("up") and blackPosition.y > SCREEN_OFFSET then
+  if love.keyboard.isDown("up") and blackPosition.y > SCREEN_OFFSET then
     whitePosition.y = whitePosition.y + speed
     blackPosition.y = blackPosition.y - speed
   end
 
-  if lk.isDown("down") and whitePosition.y > SCREEN_OFFSET then
+  if love.keyboard.isDown("down") and whitePosition.y > SCREEN_OFFSET then
     whitePosition.y = whitePosition.y - speed
     blackPosition.y = blackPosition.y + speed
   end
 
-  if lk.isDown(" ") then
-    shoot(self.entities, whitePlayer, dt)
-  end
+  shoot(self.entities, whitePlayer, dt)
 end
 
 return Input
