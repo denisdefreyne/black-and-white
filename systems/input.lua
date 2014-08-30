@@ -55,12 +55,12 @@ function Input:update(dt)
 
   local lk = love.keyboard
 
-  if lk.isDown("up") then
+  if lk.isDown("up") and blackPosition.y > 50 then
     whitePosition.y = whitePosition.y + speed
     blackPosition.y = blackPosition.y - speed
   end
 
-  if lk.isDown("down") then
+  if lk.isDown("down") and whitePosition.y > 50 then
     whitePosition.y = whitePosition.y - speed
     blackPosition.y = blackPosition.y + speed
   end
