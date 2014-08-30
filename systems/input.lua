@@ -12,7 +12,7 @@ function Input.new(entities)
   return setmetatable({ entities = entities }, Input)
 end
 
-local BULLET_VELOCITY_X = 200
+local BULLET_VELOCITY_X = 400
 local SCREEN_OFFSET = 50
 
 local function createBullet(entities, isBlack)
