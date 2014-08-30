@@ -46,21 +46,17 @@ function CollisionHandler:pairInteracts(a, b)
   if not aCollisionGroup then return false end
   if not bCollisionGroup then return false end
 
-  -- local aOriginatingEntity = a:get(Components.OriginatingEntity)
-  -- local bOriginatingEntity = b:get(Components.OriginatingEntity)
-
-  -- if aOriginatingEntity and aOriginatingEntity.entity == b then
-  --   return false
-  -- elseif bOriginatingEntity and bOriginatingEntity.entity == a then
-  --   return false
-  -- end
-
   local aIsPlayer = a:get(Components.BlackPlayer) or a:get(Components.WhitePlayer)
   local bIsPlayer = b:get(Components.BlackPlayer) or b:get(Components.WhitePlayer)
 
-  if aIsPlayer or bIsPlayer then return false end
+  local aIsBullet = aCollisionGroup.name == 'bullet'
+  local bIsBullet = bCollisionGroup.name == 'bullet'
 
-  return aCollisionGroup.name == 'bullet' or bCollisionGroup.name == 'bullet'
+  if aIsPlayer or bIsPlayer then
+    return false
+  else
+    return (aIsBullet or bIsBullet) and not (aIsBullet and bIsBullet)
+  end
 end
 
 function CollisionHandler:singleDetected(entity, otherEntity)
