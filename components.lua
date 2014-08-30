@@ -51,4 +51,11 @@ Components.Animation = {
   format = function(self) return '' end,
 }
 
+Components.Health = {
+  order  = 8,
+  name   = 'Health',
+  new    = function(max) return { cur = max, max = max } end,
+  format = function(self) return '' end,
+}
+
 return Components

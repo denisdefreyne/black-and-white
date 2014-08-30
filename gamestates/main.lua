@@ -1,6 +1,7 @@
 local Engine   = require('engine')
 
 local ArenaSpace = require('spaces.arena')
+local HUDSpace   = require('spaces.hud')
 local Components = require('components')
 
 local Main = {}
@@ -29,9 +30,10 @@ local function createBlackPlayer()
   e:add(Components.BlackPlayer)
   e:add(Components.Gun)
   e:add(Components.CollisionGroup, 'black')
+  e:add(Components.Health, 10)
   e:add(Engine.Components.Rotation, math.pi)
   e:add(Engine.Components.Z, 0)
-  e:add(Engine.Components.Image, 'assets/player-black.png')
+  e:add(Engine.Components.Image, animationImagePaths[1])
   e:add(Components.Animation, animationImagePaths, 0.15)
   return e
 end
@@ -50,8 +52,9 @@ local function createWhitePlayer()
   e:add(Components.WhitePlayer)
   e:add(Components.Gun)
   e:add(Components.CollisionGroup, 'white')
+  e:add(Components.Health, 10)
   e:add(Engine.Components.Z, 0)
-  e:add(Engine.Components.Image, 'assets/player-white.png')
+  e:add(Engine.Components.Image, animationImagePaths[1])
   e:add(Components.Animation, animationImagePaths, 0.15)
   return e
 end
@@ -62,22 +65,34 @@ local function createEnemySpawner()
   return e
 end
 
-local function createEntities()
-  local entities = Engine.Types.EntitiesCollection.new()
+local function createHealthBar(player, isBlack)
+  local x = isBlack and 120 or love.window.getWidth() - 120
+  local y = 50
 
-  entities:add(createBackground())
-  entities:add(createBlackPlayer())
-  entities:add(createWhitePlayer())
-  entities:add(createEnemySpawner())
-
-  return entities
+  local e = Engine.Entity.new()
+  e:add(Engine.Components.Image, 'assets/health-10.png')
+  e:add(Engine.Components.Position, x, y)
+  e:add(Engine.Components.Z, 100)
+  return e
 end
 
 function Main.new()
-  local entities = createEntities()
-  local arenaSpace = ArenaSpace.new(entities)
+  local blackPlayer = createBlackPlayer()
+  local whitePlayer = createWhitePlayer()
 
-  return Engine.Gamestate.new({ arenaSpace })
+  local arenaEntities = Engine.Types.EntitiesCollection.new()
+  arenaEntities:add(createBackground())
+  arenaEntities:add(blackPlayer)
+  arenaEntities:add(whitePlayer)
+  arenaEntities:add(createEnemySpawner())
+  local arenaSpace = ArenaSpace.new(arenaEntities)
+
+  local hudEntities = Engine.Types.EntitiesCollection.new()
+  hudEntities:add(createHealthBar(blackPlayer, true))
+  hudEntities:add(createHealthBar(whitePlayer, false))
+  local hudSpace = HUDSpace.new(hudEntities)
+
+  return Engine.Gamestate.new({ hudSpace, arenaSpace })
 end
 
 return Main
