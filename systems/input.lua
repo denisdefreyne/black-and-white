@@ -1,5 +1,4 @@
 local Engine = require('engine')
-local Debugger = require('debugger')
 
 local Gamestate = require('engine.vendor.hump.gamestate')
 
