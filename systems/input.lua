@@ -12,6 +12,9 @@ function Input.new(entities)
   return setmetatable({ entities = entities }, Input)
 end
 
+local BULLET_VELOCITY_X = 200
+local SCREEN_OFFSET = 50
+
 local function createBullet(entities, isBlack)
   local whitePlayer = entities:firstWithComponent(Components.WhitePlayer)
   local blackPlayer = entities:firstWithComponent(Components.BlackPlayer)
@@ -21,7 +24,7 @@ local function createBullet(entities, isBlack)
 
   local position  = isBlack and blackPosition or whitePosition
   local imagePath = isBlack and 'assets/bullet-black.png' or 'assets/bullet-white.png'
-  local xVelocity = isBlack and 1000 or -1000
+  local xVelocity = isBlack and BULLET_VELOCITY_X or -BULLET_VELOCITY_X
 
   local e = Engine.Entity.new()
   e:add(Engine.Components.Position, position.x, position.y)
@@ -55,12 +58,12 @@ function Input:update(dt)
 
   local lk = love.keyboard
 
-  if lk.isDown("up") and blackPosition.y > 50 then
+  if lk.isDown("up") and blackPosition.y > SCREEN_OFFSET then
     whitePosition.y = whitePosition.y + speed
     blackPosition.y = blackPosition.y - speed
   end
 
-  if lk.isDown("down") and whitePosition.y > 50 then
+  if lk.isDown("down") and whitePosition.y > SCREEN_OFFSET then
     whitePosition.y = whitePosition.y - speed
     blackPosition.y = blackPosition.y + speed
   end
