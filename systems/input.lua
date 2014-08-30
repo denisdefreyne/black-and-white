@@ -17,11 +17,11 @@ local SCREEN_OFFSET = 50
 
 local function createBullet(entities, isBlack)
   local animationImagePaths = {
-    'assets/real/bullet_idleanim_1.png',
-    'assets/real/bullet_idleanim_2.png',
-    'assets/real/bullet_idleanim_3.png',
-    'assets/real/bullet_idleanim_4.png',
-    'assets/real/bullet_idleanim_5.png',
+    'assets/bullet_idleanim_1.png',
+    'assets/bullet_idleanim_2.png',
+    'assets/bullet_idleanim_3.png',
+    'assets/bullet_idleanim_4.png',
+    'assets/bullet_idleanim_5.png',
   }
 
   local whitePlayer = entities:firstWithComponent(Components.WhitePlayer)
@@ -31,7 +31,7 @@ local function createBullet(entities, isBlack)
   local blackPosition = blackPlayer:get(Engine.Components.Position)
 
   local position  = isBlack and blackPosition or whitePosition
-  local imagePath = 'assets/real/bullet.png'
+  local imagePath = 'assets/bullet.png'
   local xVelocity = isBlack and BULLET_VELOCITY_X or -BULLET_VELOCITY_X
   local rotation  = isBlack and math.pi or 0
   local originatingEntity = isBlack and blackPlayer or whitePlayer

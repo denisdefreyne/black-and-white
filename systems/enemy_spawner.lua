@@ -19,19 +19,19 @@ local ENEMY_OFFSET_Y   = 20
 
 local function createEnemy(isBlack)
   local whiteAnimationImagePaths = {
-    'assets/real/white_enemy_idleanim_1.png',
-    'assets/real/white_enemy_idleanim_2.png',
-    'assets/real/white_enemy_idleanim_3.png',
-    'assets/real/white_enemy_idleanim_4.png',
-    'assets/real/white_enemy_idleanim_5.png',
+    'assets/white_enemy_idleanim_1.png',
+    'assets/white_enemy_idleanim_2.png',
+    'assets/white_enemy_idleanim_3.png',
+    'assets/white_enemy_idleanim_4.png',
+    'assets/white_enemy_idleanim_5.png',
   }
 
   local blackAnimationImagePaths = {
-    'assets/real/black_enemy_idleanim_1.png',
-    'assets/real/black_enemy_idleanim_2.png',
-    'assets/real/black_enemy_idleanim_3.png',
-    'assets/real/black_enemy_idleanim_4.png',
-    'assets/real/black_enemy_idleanim_5.png',
+    'assets/black_enemy_idleanim_1.png',
+    'assets/black_enemy_idleanim_2.png',
+    'assets/black_enemy_idleanim_3.png',
+    'assets/black_enemy_idleanim_4.png',
+    'assets/black_enemy_idleanim_5.png',
   }
 
   local animationImagePaths = isBlack and whiteAnimationImagePaths or blackAnimationImagePaths

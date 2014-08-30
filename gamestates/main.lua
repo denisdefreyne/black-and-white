@@ -12,17 +12,17 @@ local function createBackground()
   local e = Engine.Entity.new()
   e:add(Engine.Components.Position, love.window.getWidth() / 2, love.window.getHeight() / 2)
   e:add(Engine.Components.Z, -100)
-  e:add(Engine.Components.Image, 'assets/real/background.jpg')
+  e:add(Engine.Components.Image, 'assets/background.jpg')
   return e
 end
 
 local function createBlackPlayer()
   local animationImagePaths = {
-    'assets/real/black_bird_idleanim_1.png',
-    'assets/real/black_bird_idleanim_2.png',
-    'assets/real/black_bird_idleanim_3.png',
-    'assets/real/black_bird_idleanim_4.png',
-    'assets/real/black_bird_idleanim_5.png',
+    'assets/black_bird_idleanim_1.png',
+    'assets/black_bird_idleanim_2.png',
+    'assets/black_bird_idleanim_3.png',
+    'assets/black_bird_idleanim_4.png',
+    'assets/black_bird_idleanim_5.png',
   }
 
   local e = Engine.Entity.new()
@@ -40,11 +40,11 @@ end
 
 local function createWhitePlayer()
   local animationImagePaths = {
-    'assets/real/white_bird_idleanim_1.png',
-    'assets/real/white_bird_idleanim_2.png',
-    'assets/real/white_bird_idleanim_3.png',
-    'assets/real/white_bird_idleanim_4.png',
-    'assets/real/white_bird_idleanim_5.png',
+    'assets/white_bird_idleanim_1.png',
+    'assets/white_bird_idleanim_2.png',
+    'assets/white_bird_idleanim_3.png',
+    'assets/white_bird_idleanim_4.png',
+    'assets/white_bird_idleanim_5.png',
   }
 
   local e = Engine.Entity.new()
