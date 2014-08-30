@@ -19,6 +19,7 @@ function Arena.new(entities)
     EnemyBehaviorSystem.new(entities),
     Engine.Systems.CollisionDetection.new(entities),
     CollisionHandlingSystem.new(entities),
+    Engine.Systems.ParticleSystem.new(entities),
     Engine.Systems.Rendering.new(entities),
     Engine.Systems.Physics.new(entities),
     GameOverSystem.new(entities),
