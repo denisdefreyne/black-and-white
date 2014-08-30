@@ -12,7 +12,8 @@ Steps:
 6. [DONE] Enemies moving in from both directions
 7. [DONE] Collision detection and collision handling
 8. [DONE] Animate
-9. Checking when enemies reach the other side
+9. [DONE] Checking when enemies reach the other side
+10. Proper game-over screen
 
 Winning:
 
