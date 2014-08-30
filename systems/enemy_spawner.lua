@@ -13,13 +13,13 @@ function EnemySpawner.new(entities)
   return Engine.System.new(EnemySpawner, entities, requiredComponentTypes)
 end
 
-local ENEMY_VELOCITY_X = 50
+local ENEMY_VELOCITY_X = 100
 local ENEMY_OFFSET_X   = 20
 local ENEMY_OFFSET_Y   = 20
 
 local function createEnemy(isBlack)
   local xVelocity = isBlack and ENEMY_VELOCITY_X or -ENEMY_VELOCITY_X
-  local imagePath = isBlack and 'assets/enemy-black.png' or 'assets/enemy-white.png'
+  local imagePath = isBlack and 'assets/enemy-white.png' or 'assets/enemy-black.png'
 
   local x = isBlack and - ENEMY_OFFSET_X or love.window.getWidth() + ENEMY_OFFSET_X
   local y = ENEMY_OFFSET_Y + math.random() * (love.window.getHeight() - 2 * ENEMY_OFFSET_Y)
