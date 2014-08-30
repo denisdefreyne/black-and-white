@@ -1,6 +1,6 @@
 local ProFi      = require('vendor.ProFi')
 local Gamestate  = require('engine.vendor.hump.gamestate')
-local MainState  = require('gamestates.main')
+local TitleState  = require('gamestates.title')
 
 function love.load()
   love.mouse.setGrabbed(true)
@@ -8,7 +8,7 @@ function love.load()
 
   -- ProFi:start()
   Gamestate.registerEvents()
-  Gamestate.switch(MainState.new())
+  Gamestate.switch(TitleState.new())
 end
 
 function love.quit()
