@@ -25,3 +25,6 @@ Ideas for improvement:
 * Waves of enemies (sine curve)
 * [DONE] Enemies come faster
 * [DONE] Enemies move vertically
+* Parallax background
+* Death animations
+* Hit animations
