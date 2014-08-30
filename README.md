@@ -24,4 +24,4 @@ Ideas for improvement:
 
 * Waves of enemies (sine curve)
 * Enemies come faster
-* Enemies move vertically
+* [DONE] Enemies move vertically
