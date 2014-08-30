@@ -65,4 +65,11 @@ Components.HealthTracking = {
   format = function(self) return '' end,
 }
 
+Components.EnemyBehavior = {
+  order  = 10,
+  name   = 'Enemy behavior',
+  new    = function() return { freq = (2 + math.random()) * 1.5, lifetime = math.random()*10 } end,
+  format = function(self) return '' end,
+}
+
 return Components

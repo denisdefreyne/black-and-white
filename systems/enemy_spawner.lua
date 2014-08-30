@@ -53,6 +53,7 @@ local function createEnemy(isBlack)
   e:add(Engine.Components.Image, imagePath)
   e:add(Components.CollisionGroup, 'enemy')
   e:add(Components.Animation, animationImagePaths, 0.15)
+  e:add(Components.EnemyBehavior)
   return e
 end
 
