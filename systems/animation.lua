@@ -13,14 +13,8 @@ function Animation.new(entities)
 end
 
 function Animation:updateEntity(entity, dt)
-  -- delay (0.15)
-  -- curDelay (0)
-  -- curFrame (1)
-
   local animation = entity:get(Components.Animation)
   local image     = entity:get(Engine.Components.Image)
-
-  print(animation.curDelay, animation.delay)
 
   animation.curDelay = animation.curDelay + dt
   if animation.curDelay > animation.delay then
