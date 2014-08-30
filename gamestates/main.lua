@@ -12,7 +12,7 @@ local function createBackground()
   local e = Engine.Entity.new()
   e:add(Engine.Components.Position, love.window.getWidth() / 2, love.window.getHeight() / 2)
   e:add(Engine.Components.Z, -100)
-  e:add(Engine.Components.Image, 'assets/background2.png')
+  e:add(Engine.Components.Image, 'assets/real/background.jpg')
   return e
 end
 
