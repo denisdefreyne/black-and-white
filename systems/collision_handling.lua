@@ -110,6 +110,16 @@ function CollisionHandler:singleDetected(entity, otherEntity)
 
   addHitAnimation(true, position.x, position.y, self.entities)
 
+  if entity:get(Components.BlackPlayer) then
+    local x = 90
+    local y = 60
+    addHitAnimation(true, x, y, self.entities)
+  elseif entity:get(Components.WhitePlayer) then
+    local x = love.window.getWidth() - 110
+    local y = 60
+    addHitAnimation(true, x, y, self.entities)
+  end
+
   health.cur = health.cur - 1
   if health.cur < 1 then
     if entity:get(Components.BlackPlayer) or entity:get(Components.WhitePlayer) then
