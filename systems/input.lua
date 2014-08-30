@@ -31,9 +31,17 @@ local function createBullet(entities, isBlack)
   return e
 end
 
-local function shoot(entities)
-  entities:add(createBullet(entities, true))
-  entities:add(createBullet(entities, false))
+local function shoot(entities, whitePlayer, dt)
+  local gunComponent = whitePlayer:get(Components.Gun)
+
+  if gunComponent.curCooldown <= 0 then
+    entities:add(createBullet(entities, true))
+    entities:add(createBullet(entities, false))
+
+    gunComponent.curCooldown = gunComponent.curCooldown + gunComponent.maxCooldown
+  end
+
+  gunComponent.curCooldown = gunComponent.curCooldown - dt
 end
 
 function Input:update(dt)
@@ -58,7 +66,7 @@ function Input:update(dt)
   end
 
   if lk.isDown(" ") then
-    shoot(self.entities)
+    shoot(self.entities, whitePlayer, dt)
   end
 end
 
