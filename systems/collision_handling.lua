@@ -67,7 +67,10 @@ function CollisionHandler:singleDetected(entity, otherEntity)
 
   health.cur = health.cur - 1
   if health.cur < 1 then
-    self.entities:remove(entity)
+    if entity:get(Components.BlackPlayer) or entity:get(Components.WhitePlayer) then
+    else
+      self.entities:remove(entity)
+    end
   end
 end
 
