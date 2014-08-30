@@ -1,6 +1,6 @@
 local Signal = require('engine.vendor.hump.signal')
 local Engine = require('engine')
-    local Gamestate  = require('engine.vendor.hump.gamestate')
+local Gamestate  = require('engine.vendor.hump.gamestate')
 
 local GameOver = Engine.System.newType()
 

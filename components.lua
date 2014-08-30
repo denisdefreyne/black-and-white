@@ -19,7 +19,7 @@ Components.WhitePlayer = {
 Components.Gun = {
   order  = 3,
   name   = 'Gun',
-  new    = function() return { maxCooldown = 0.2, curCooldown = 0 } end,
+  new    = function() return { maxCooldown = 0.2, curCooldown = 0.1 } end,
   format = function(self) return 'Yes' end,
 }
 
