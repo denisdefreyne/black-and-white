@@ -18,8 +18,8 @@ function GameOver:updateEntity(entity, dt)
   local healthComponent = entity:get(Components.Health)
 
   if healthComponent.cur < 1 then
-    local MainState  = require('gamestates.main')
-    Gamestate.switch(MainState.new())
+    local GameOverState  = require('gamestates.game_over')
+    Gamestate.switch(GameOverState.new())
   end
 end
 
