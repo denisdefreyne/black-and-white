@@ -18,6 +18,24 @@ local ENEMY_OFFSET_X   = 20
 local ENEMY_OFFSET_Y   = 20
 
 local function createEnemy(isBlack)
+  local whiteAnimationImagePaths = {
+    'assets/real/white_enemy_idleanim_1.png',
+    'assets/real/white_enemy_idleanim_2.png',
+    'assets/real/white_enemy_idleanim_3.png',
+    'assets/real/white_enemy_idleanim_4.png',
+    'assets/real/white_enemy_idleanim_5.png',
+  }
+
+  local blackAnimationImagePaths = {
+    'assets/real/black_enemy_idleanim_1.png',
+    'assets/real/black_enemy_idleanim_2.png',
+    'assets/real/black_enemy_idleanim_3.png',
+    'assets/real/black_enemy_idleanim_4.png',
+    'assets/real/black_enemy_idleanim_5.png',
+  }
+
+  local animationImagePaths = isBlack and whiteAnimationImagePaths or blackAnimationImagePaths
+
   local xVelocity = isBlack and ENEMY_VELOCITY_X or -ENEMY_VELOCITY_X
   local imagePath = isBlack and 'assets/enemy-white.png' or 'assets/enemy-black.png'
 
@@ -28,9 +46,10 @@ local function createEnemy(isBlack)
   e:add(Engine.Components.Position, x, y)
   e:add(Engine.Components.Velocity, xVelocity, 0)
   e:add(Engine.Components.Z, 1)
+  e:add(Engine.Components.Scale, 0.6)
   e:add(Engine.Components.Image, imagePath)
   e:add(Components.CollisionGroup, 'enemy')
-  e:add(Components.CollisionGroup, 'enemy')
+  e:add(Components.Animation, animationImagePaths, 0.15)
   return e
 end
 
