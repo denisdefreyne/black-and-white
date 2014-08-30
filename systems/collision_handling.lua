@@ -59,7 +59,16 @@ function CollisionHandler:pairInteracts(a, b)
 end
 
 function CollisionHandler:singleDetected(entity, otherEntity)
-  self.entities:remove(entity)
+  local health = entity:get(Components.Health)
+  if not health then
+    self.entities:remove(entity)
+    return
+  end
+
+  health.cur = health.cur - 1
+  if health.cur < 1 then
+    self.entities:remove(entity)
+  end
 end
 
 return CollisionHandler

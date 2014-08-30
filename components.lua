@@ -58,4 +58,11 @@ Components.Health = {
   format = function(self) return '' end,
 }
 
+Components.HealthTracking = {
+  order  = 9,
+  name   = 'Health tracking',
+  new    = function(entity) return { entity = entity } end,
+  format = function(self) return '' end,
+}
+
 return Components
