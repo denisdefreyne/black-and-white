@@ -36,12 +36,19 @@ local function createWhitePlayer()
   return e
 end
 
+local function createEnemySpawner()
+  local e = Engine.Entity.new()
+  e:add(Components.EnemySpawner)
+  return e
+end
+
 local function createEntities()
   local entities = Engine.Types.EntitiesCollection.new()
 
   entities:add(createBackground())
   entities:add(createBlackPlayer())
   entities:add(createWhitePlayer())
+  entities:add(createEnemySpawner())
 
   return entities
 end

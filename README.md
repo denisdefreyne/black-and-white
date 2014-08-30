@@ -9,5 +9,5 @@ Steps:
     1. [DONE] Limit fire-rate
     2. [DONE] Destroy off-screen bullets
 5. [DONE] Limit ship movement
-6. Enemies moving in from both directions
+6. [DONE] Enemies moving in from both directions
 7. Collision detection and collision handling

@@ -23,4 +23,11 @@ Components.Gun = {
   format = function(self) return 'Yes' end,
 }
 
+Components.EnemySpawner = {
+  order  = 4,
+  name   = 'Enemy spawner',
+  new    = function() return { maxCooldown = 2.0, curCooldown = 0 } end,
+  format = function(self) return 'Yes' end,
+}
+
 return Components
