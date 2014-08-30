@@ -30,4 +30,18 @@ Components.EnemySpawner = {
   format = function(self) return 'Yes' end,
 }
 
+Components.CollisionGroup = {
+  order  = 5,
+  name   = 'Collision group',
+  new    = function(name) return { name = name } end,
+  format = function(self) return '' .. name end,
+}
+
+Components.OriginatingEntity = {
+  order  = 6,
+  name   = 'Originating entity',
+  new    = function(entity) return { entity = entity } end,
+  format = function(self) return '' end,
+}
+
 return Components

@@ -26,6 +26,7 @@ local function createBullet(entities, isBlack)
   local imagePath = isBlack and 'assets/bullet-red.png' or 'assets/bullet-red.png'
   local xVelocity = isBlack and BULLET_VELOCITY_X or -BULLET_VELOCITY_X
   local rotation  = isBlack and 0 or math.pi
+  local originatingEntity = isBlack and blackPlayer or whitePlayer
 
   local e = Engine.Entity.new()
   e:add(Engine.Components.Position, position.x, position.y)
@@ -33,6 +34,8 @@ local function createBullet(entities, isBlack)
   e:add(Engine.Components.Z, 1)
   e:add(Engine.Components.Image, imagePath)
   e:add(Engine.Components.Rotation, rotation)
+  e:add(Components.CollisionGroup, 'bullet')
+  e:add(Components.OriginatingEntity, originatingEntity)
   return e
 end
 
