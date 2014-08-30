@@ -15,7 +15,7 @@ end
 
 local ENEMY_VELOCITY_X = 100
 local ENEMY_OFFSET_X   = 20
-local ENEMY_OFFSET_Y   = 20
+local ENEMY_OFFSET_Y   = 150
 
 local function createEnemy(isBlack)
   local whiteAnimationImagePaths = {
