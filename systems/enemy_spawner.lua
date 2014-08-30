@@ -42,11 +42,14 @@ local function createEnemy(isBlack)
   local x = isBlack and - ENEMY_OFFSET_X or love.window.getWidth() + ENEMY_OFFSET_X
   local y = ENEMY_OFFSET_Y + math.random() * (love.window.getHeight() - 2 * ENEMY_OFFSET_Y)
 
+  local xScale = isBlack and 0.6 or -0.6
+  local yScale = -0.6
+
   local e = Engine.Entity.new()
   e:add(Engine.Components.Position, x, y)
   e:add(Engine.Components.Velocity, xVelocity, 0)
   e:add(Engine.Components.Z, 1)
-  e:add(Engine.Components.Scale, 0.6)
+  e:add(Engine.Components.Scale, xScale, yScale)
   e:add(Engine.Components.Image, imagePath)
   e:add(Components.CollisionGroup, 'enemy')
   e:add(Components.Animation, animationImagePaths, 0.15)
