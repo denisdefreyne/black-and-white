@@ -60,17 +60,6 @@ end
 
 function CollisionHandler:singleDetected(entity, otherEntity)
   self.entities:remove(entity)
-  if true then return end
-
-  -- TODO: Implement
-
-  local health        = entity:get(Components.Health)
-  local position      = entity:get(Engine.Components.Position)
-
-  health.cur = health.cur - 1
-  if health.cur <= 0 then
-    self.entities:remove(entity)
-  end
 end
 
 return CollisionHandler
