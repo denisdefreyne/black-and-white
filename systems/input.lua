@@ -12,10 +12,18 @@ function Input.new(entities)
   return setmetatable({ entities = entities }, Input)
 end
 
-local BULLET_VELOCITY_X = 400
+local BULLET_VELOCITY_X = 200
 local SCREEN_OFFSET = 50
 
 local function createBullet(entities, isBlack)
+  local animationImagePaths = {
+    'assets/real/bullet_idleanim_1.png',
+    'assets/real/bullet_idleanim_2.png',
+    'assets/real/bullet_idleanim_3.png',
+    'assets/real/bullet_idleanim_4.png',
+    'assets/real/bullet_idleanim_5.png',
+  }
+
   local whitePlayer = entities:firstWithComponent(Components.WhitePlayer)
   local blackPlayer = entities:firstWithComponent(Components.BlackPlayer)
 
@@ -37,6 +45,7 @@ local function createBullet(entities, isBlack)
   e:add(Engine.Components.Rotation, rotation)
   e:add(Components.CollisionGroup, 'bullet')
   e:add(Components.OriginatingEntity, originatingEntity)
+  e:add(Components.Animation, animationImagePaths, 0.08)
   return e
 end
 
