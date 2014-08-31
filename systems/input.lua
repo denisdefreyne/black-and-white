@@ -40,11 +40,10 @@ local function createBullet(entities, isBlack)
   e:add(Engine.Components.Velocity, xVelocity, 0)
   e:add(Engine.Components.Z, -1)
   e:add(Engine.Components.Scale, 0.3)
-  e:add(Engine.Components.Image, imagePath)
   e:add(Engine.Components.Rotation, rotation)
   e:add(Components.CollisionGroup, 'bullet')
   e:add(Components.OriginatingEntity, originatingEntity)
-  e:add(Components.Animation, animationImagePaths, 0.08)
+  e:add(Engine.Components.Animation, animationImagePaths, 0.08)
   return e
 end
 

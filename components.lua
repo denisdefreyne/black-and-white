@@ -44,13 +44,6 @@ Components.OriginatingEntity = {
   format = function(self) return '' end,
 }
 
-Components.Animation = {
-  order  = 7,
-  name   = 'Animation',
-  new    = function(imagePaths, delay) return { imagePaths = imagePaths, delay = delay, curFrame = 1, curDelay = 0 } end,
-  format = function(self) return '' end,
-}
-
 Components.Health = {
   order  = 8,
   name   = 'Health',

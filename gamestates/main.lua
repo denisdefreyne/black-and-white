@@ -34,8 +34,7 @@ local function createBlackPlayer()
   e:add(Engine.Components.Rotation, math.pi)
   e:add(Engine.Components.Velocity, 0, 0)
   e:add(Engine.Components.Z, 0)
-  e:add(Engine.Components.Image, animationImagePaths[1])
-  e:add(Components.Animation, animationImagePaths, 0.15)
+  e:add(Engine.Components.Animation, animationImagePaths, 0.15)
   return e
 end
 
@@ -56,8 +55,7 @@ local function createWhitePlayer()
   e:add(Components.Health, 5)
   e:add(Engine.Components.Z, 0)
   e:add(Engine.Components.Velocity, 0, 0)
-  e:add(Engine.Components.Image, animationImagePaths[1])
-  e:add(Components.Animation, animationImagePaths, 0.15)
+  e:add(Engine.Components.Animation, animationImagePaths, 0.15)
   return e
 end
 

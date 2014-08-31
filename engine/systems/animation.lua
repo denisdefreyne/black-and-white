@@ -1,20 +1,18 @@
-local Engine = require('engine')
-local Components = require('components')
+local Engine_Components = require('engine.components')
+local Engine_System     = require('engine.system')
 
-local Animation = Engine.System.newType()
+local Animation = Engine_System.newType()
 
 function Animation.new(entities)
   local requiredComponentTypes = {
-    Components.Animation,
-    Engine.Components.Image,
+    Engine_Components.Animation,
   }
 
-  return Engine.System.new(Animation, entities, requiredComponentTypes)
+  return Engine_System.new(Animation, entities, requiredComponentTypes)
 end
 
 function Animation:updateEntity(entity, dt)
-  local animation = entity:get(Components.Animation)
-  local image     = entity:get(Engine.Components.Image)
+  local animation = entity:get(Engine_Components.Animation)
 
   animation.curDelay = animation.curDelay + dt
   if animation.curDelay > animation.delay then
@@ -24,7 +22,6 @@ function Animation:updateEntity(entity, dt)
     if animation.curFrame > #animation.imagePaths then
       animation.curFrame = 1
     end
-    image.path = animation.imagePaths[animation.curFrame]
   end
 end
 
