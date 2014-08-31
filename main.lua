@@ -1,3 +1,5 @@
+package.path = package.path .. ';vendor/d-tech/?.lua;vendor/d-tech/?/init.lua'
+
 local Gamestate = require('engine.vendor.hump.gamestate')
 local TitleState = require('gamestates.title')
 
@@ -5,7 +7,7 @@ function love.load()
   love.mouse.setGrabbed(true)
   love.graphics.setDefaultFilter('nearest')
 
-  music = love.audio.newSource('assets/wayfinder - 20140830 - minijam - blackbird.mp3')
+  local music = love.audio.newSource('assets/wayfinder - 20140830 - minijam - blackbird.mp3')
   music:play()
 
   Gamestate.registerEvents()

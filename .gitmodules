@@ -1,0 +1,3 @@
+[submodule "vendor/d-tech"]
+	path = vendor/d-tech
+	url = git@github.com:ddfreyne/d-tech.git
