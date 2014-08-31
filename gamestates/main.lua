@@ -70,7 +70,7 @@ local function createHealthBar(player, isBlack)
   local y = 60
 
   local e = Engine.Entity.new()
-  e:add(Engine.Components.Image, 'assets/health-10.png')
+  e:add(Engine.Components.Image, 'assets/life_5.png')
   e:add(Engine.Components.Position, x, y)
   e:add(Engine.Components.Z, 100)
   e:add(Engine.Components.Scale, 0.8)
