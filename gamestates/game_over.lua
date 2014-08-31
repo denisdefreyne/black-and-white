@@ -14,7 +14,7 @@ local function createBackground()
 end
 
 function GameOver.new()
-  local entities = Engine.Types.EntitiesCollection.new()
+  local entities = Engine.Types.EntitiesCollection:new()
   entities:add(createBackground())
   local gameOverSpace = GameOverSpace.new(entities)
 
