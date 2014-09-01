@@ -1,5 +1,4 @@
 local Engine = require('engine')
-local Components = require('components')
 
 local Button = {}
 
