@@ -42,7 +42,6 @@ function addHitAnimation(isBig, x, y, entities)
 
   local self = Engine.Entity.new()
 
-  self:add(Engine.Components.Description,    'Explosion')
   self:add(Engine.Components.Z,              1)
   self:add(Engine.Components.ParticleSystem, imagePath, config, true)
   self:add(Engine.Components.Position, x, y)

@@ -16,14 +16,13 @@ function CollisionHandler.new(entities)
     table.insert(t.collisions, tbl)
   end
   t.callbacks.collisionDetected = collisionDetected
-  -- TODO: Do not hardcode this constant
-  Signal.register('engine:systems:collision:detected', collisionDetected)
+  Signal.register(Engine.Systems.CollisionDetection.COLLIDING_SIGNAL, collisionDetected)
 
   return setmetatable(t, CollisionHandler)
 end
 
 function CollisionHandler:leave()
-  Signal.remove('engine:systems:collision:detected', self.callbacks.collisionDetected)
+  Signal.remove(Engine.Systems.CollisionDetection.COLLIDING_SIGNAL, self.callbacks.collisionDetected)
 end
 
 function CollisionHandler:update(dt)
@@ -89,7 +88,6 @@ function addHitAnimation(isBig, x, y, entities)
 
   local self = Engine.Entity.new()
 
-  self:add(Engine.Components.Description,    'Explosion')
   self:add(Engine.Components.Z,              1)
   self:add(Engine.Components.ParticleSystem, imagePath, config, true)
   self:add(Engine.Components.Position, x, y)
