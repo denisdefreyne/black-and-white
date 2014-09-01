@@ -3,6 +3,7 @@ local Engine = require('engine')
 local Gamestate = require('engine.vendor.hump.gamestate')
 
 local Components = require('components')
+local HitPrefab = require('prefabs.hit')
 
 local Input = {}
 Input.__index = Input
@@ -13,6 +14,16 @@ end
 
 local BULLET_VELOCITY_X = 400
 local SCREEN_OFFSET = 100
+
+local function bulletCollided(entity, otherEntity, entities)
+  local originatingEntityCmp = entity:get(Components.OriginatingEntity)
+  if originatingEntityCmp and originatingEntityCmp.entity ~= otherEntity then
+    local pos = entity:get(Engine.Components.Position)
+    local hit = HitPrefab.new(false, pos.x, pos.y, entities)
+    entities:add(hit)
+    entities:remove(entity)
+  end
+end
 
 local function createBullet(entities, isBlack)
   local animationImagePaths = {
@@ -41,6 +52,8 @@ local function createBullet(entities, isBlack)
   e:add(Engine.Components.Z, -1)
   e:add(Engine.Components.Scale, 0.3)
   e:add(Engine.Components.Rotation, rotation)
+  e:add(Engine.Components.OnCollide, bulletCollided)
+  e:add(Components.Bullet)
   e:add(Components.CollisionGroup, 'bullet')
   e:add(Components.OriginatingEntity, originatingEntity)
   e:add(Engine.Components.Animation, animationImagePaths, 0.08)

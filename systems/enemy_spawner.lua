@@ -4,6 +4,7 @@ local Engine = require('engine')
 local EnemySpawner = Engine.System.newType()
 
 local Components = require('components')
+local HitPrefab = require('prefabs.hit')
 
 function EnemySpawner.new(entities)
   local requiredComponentTypes = {
@@ -16,6 +17,15 @@ end
 local ENEMY_VELOCITY_X = 100
 local ENEMY_OFFSET_X   = 20
 local ENEMY_OFFSET_Y   = 150
+
+local function enemyCollided(entity, otherEntity, entities)
+  if otherEntity:get(Components.Bullet) then
+    local pos = entity:get(Engine.Components.Position)
+    local hit = HitPrefab.new(false, pos.x, pos.y, entities)
+    entities:add(hit)
+    entities:remove(entity)
+  end
+end
 
 local function createEnemy(isBlack)
   local whiteAnimationImagePaths = {
@@ -51,6 +61,7 @@ local function createEnemy(isBlack)
   e:add(Engine.Components.Z, 1)
   e:add(Engine.Components.Scale, xScale, yScale)
   e:add(Engine.Components.Size, 160, 90)
+  e:add(Engine.Components.OnCollide, enemyCollided)
   e:add(Components.CollisionGroup, 'enemy')
   e:add(Engine.Components.Animation, animationImagePaths, 0.15)
   e:add(Components.EnemyBehavior)

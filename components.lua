@@ -30,6 +30,10 @@ Components.Health = {
   new = function(max) return { cur = max, max = max } end,
 }
 
+Components.Bullet = {
+  new = function() return {} end,
+}
+
 Components.HealthTracking = {
   new = function(entity) return { entity = entity } end,
 }

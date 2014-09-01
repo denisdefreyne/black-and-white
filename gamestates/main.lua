@@ -5,10 +5,11 @@ local Components = require('components')
 local InputSystem             = require('systems.input')
 local OffscreenSystem         = require('systems.offscreen')
 local EnemySpawner            = require('systems.enemy_spawner')
-local CollisionHandlingSystem = require('systems.collision_handling')
 local GameOverSystem          = require('systems.game_over')
 local EnemyBehaviorSystem     = require('systems.enemy_behavior')
 local HealthTrackingSystem    = require('systems.health_tracking')
+
+local HitPrefab = require('prefabs.hit')
 
 local Main = {}
 
@@ -20,6 +21,18 @@ local function createBackground()
   e:add(Engine.Components.Z, -100)
   e:add(Engine.Components.Image, 'assets/background.jpg')
   return e
+end
+
+local function playerCollided(entity, otherEntity, entities)
+  local pos = entity:get(Engine.Components.Position)
+  local otherOriginatingEntityCmp = otherEntity:get(Components.OriginatingEntity)
+  local health = entity:get(Components.Health)
+
+  if otherOriginatingEntityCmp and otherOriginatingEntityCmp.entity ~= entity then
+    entities:add(HitPrefab.new(true, pos.x, pos.y))
+
+    health.cur = health.cur - 1
+  end
 end
 
 local function createBlackPlayer()
@@ -37,6 +50,7 @@ local function createBlackPlayer()
   e:add(Components.Gun)
   e:add(Components.CollisionGroup, 'black')
   e:add(Components.Health, 5)
+  e:add(Engine.Components.OnCollide, playerCollided)
   e:add(Engine.Components.Rotation, math.pi)
   e:add(Engine.Components.Velocity, 0, 0)
   e:add(Engine.Components.Z, 0)
@@ -59,6 +73,7 @@ local function createWhitePlayer()
   e:add(Components.Gun)
   e:add(Components.CollisionGroup, 'white')
   e:add(Components.Health, 5)
+  e:add(Engine.Components.OnCollide, playerCollided)
   e:add(Engine.Components.Z, 0)
   e:add(Engine.Components.Velocity, 0, 0)
   e:add(Engine.Components.Animation, animationImagePaths, 0.15)
@@ -92,7 +107,6 @@ local function createArenaSpace(entities)
     EnemySpawner.new(entities),
     EnemyBehaviorSystem.new(entities),
     Engine.Systems.CollisionDetection.new(entities),
-    CollisionHandlingSystem.new(entities),
     Engine.Systems.ParticleSystem.new(entities),
     Engine.Systems.Rendering.new(entities),
     Engine.Systems.Physics.new(entities),
