@@ -1,7 +1,7 @@
 local Engine = require('engine')
 
-local GameOverSpace = require('spaces.game_over')
 local Components    = require('components')
+local RestartSystem = require('systems.restart')
 
 local GameOver = {}
 
@@ -13,10 +13,19 @@ local function createBackground()
   return e
 end
 
+local function createSpace(entities)
+  local systems = {
+    Engine.Systems.Rendering.new(entities),
+    RestartSystem.new(entities),
+  }
+
+  return Engine.Space.new(entities, systems)
+end
+
 function GameOver.new()
   local entities = Engine.Types.EntitiesCollection:new()
   entities:add(createBackground())
-  local gameOverSpace = GameOverSpace.new(entities)
+  local gameOverSpace = createSpace(entities)
 
   return Engine.Gamestate.new({ gameOverSpace })
 end

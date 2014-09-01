@@ -1,8 +1,14 @@
 local Engine   = require('engine')
 
-local ArenaSpace = require('spaces.arena')
-local HUDSpace   = require('spaces.hud')
 local Components = require('components')
+
+local InputSystem             = require('systems.input')
+local OffscreenSystem         = require('systems.offscreen')
+local EnemySpawner            = require('systems.enemy_spawner')
+local CollisionHandlingSystem = require('systems.collision_handling')
+local GameOverSystem          = require('systems.game_over')
+local EnemyBehaviorSystem     = require('systems.enemy_behavior')
+local HealthTrackingSystem    = require('systems.health_tracking')
 
 local Main = {}
 
@@ -78,6 +84,33 @@ local function createHealthBar(player, isBlack)
   return e
 end
 
+local function createArenaSpace(entities)
+  local systems = {
+    InputSystem.new(entities),
+    Engine.Systems.Animation.new(entities),
+    OffscreenSystem.new(entities),
+    EnemySpawner.new(entities),
+    EnemyBehaviorSystem.new(entities),
+    Engine.Systems.CollisionDetection.new(entities),
+    CollisionHandlingSystem.new(entities),
+    Engine.Systems.ParticleSystem.new(entities),
+    Engine.Systems.Rendering.new(entities),
+    Engine.Systems.Physics.new(entities),
+    GameOverSystem.new(entities),
+  }
+
+  return Engine.Space.new(entities, systems)
+end
+
+local function createHUDSpace(entities)
+  local systems = {
+    Engine.Systems.Rendering.new(entities),
+    HealthTrackingSystem.new(entities),
+  }
+
+  return Engine.Space.new(entities, systems)
+end
+
 function Main.new()
   local blackPlayer = createBlackPlayer()
   local whitePlayer = createWhitePlayer()
@@ -87,12 +120,12 @@ function Main.new()
   arenaEntities:add(blackPlayer)
   arenaEntities:add(whitePlayer)
   arenaEntities:add(createEnemySpawner())
-  local arenaSpace = ArenaSpace.new(arenaEntities)
+  local arenaSpace = createArenaSpace(arenaEntities)
 
   local hudEntities = Engine.Types.EntitiesCollection:new()
   hudEntities:add(createHealthBar(blackPlayer, true))
   hudEntities:add(createHealthBar(whitePlayer, false))
-  local hudSpace = HUDSpace.new(hudEntities)
+  local hudSpace = createHUDSpace(hudEntities)
 
   return Engine.Gamestate.new({ hudSpace, arenaSpace })
 end

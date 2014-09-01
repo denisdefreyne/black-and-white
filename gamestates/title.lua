@@ -1,8 +1,8 @@
 local Engine = require('engine')
 
-local TitleSpace = require('spaces.title')
 local Components = require('components')
 local Gamestate = require('engine.vendor.hump.gamestate')
+local RestartSystem = require('systems.restart')
 
 local Title = {}
 
@@ -33,11 +33,21 @@ local function createNewGameButton()
   return e
 end
 
+local function createSpace(entities)
+  local systems = {
+    Engine.Systems.Rendering.new(entities),
+    Engine.Systems.CursorTracking.new(entities),
+    RestartSystem.new(entities),
+  }
+
+  return Engine.Space.new(entities, systems)
+end
+
 function Title.new()
   local entities = Engine.Types.EntitiesCollection:new()
   entities:add(createBackground())
   entities:add(createNewGameButton())
-  local TitleSpace = TitleSpace.new(entities)
+  local TitleSpace = createSpace(entities)
 
   return Engine.Gamestate.new({ TitleSpace })
 end
