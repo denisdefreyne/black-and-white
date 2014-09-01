@@ -7,6 +7,7 @@ local Title = {}
 function Title.new(entities)
   local systems = {
     Engine.Systems.Rendering.new(entities),
+    Engine.Systems.CursorTracking.new(entities),
     RestartSystem.new(entities),
   }
 
