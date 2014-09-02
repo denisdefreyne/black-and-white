@@ -1,18 +1,17 @@
 local Signal = require('engine.vendor.hump.signal')
-local Engine_Components = require('engine.components')
-local Engine_System     = require('engine.system')
+local Engine = require('engine')
 
-local Offscreen = Engine_System.newType()
+local Offscreen = Engine.System.newType()
 
 local Components = require('components')
 
 function Offscreen.new(entities)
   local requiredComponentTypes = {
-    Engine_Components.Position,
-    Engine_Components.Velocity,
+    Engine.Components.Position,
+    Engine.Components.Velocity,
   }
 
-  return Engine_System.new(Offscreen, entities, requiredComponentTypes)
+  return Engine.System.new(Offscreen, entities, requiredComponentTypes)
 end
 
 function addHitAnimation(isBig, x, y, entities)
@@ -51,8 +50,8 @@ function addHitAnimation(isBig, x, y, entities)
 end
 
 function Offscreen:updateEntity(entity, dt)
-  local position = entity:get(Engine_Components.Position)
-  local velocity = entity:get(Engine_Components.Velocity)
+  local position = entity:get(Engine.Components.Position)
+  local velocity = entity:get(Engine.Components.Velocity)
 
   local blackPlayer = self.entities:firstWithComponent(Components.BlackPlayer)
   local whitePlayer = self.entities:firstWithComponent(Components.WhitePlayer)
