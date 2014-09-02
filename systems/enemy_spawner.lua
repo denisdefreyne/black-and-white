@@ -4,7 +4,7 @@ local Engine = require('engine')
 local EnemySpawner = Engine.System.newType()
 
 local Components = require('components')
-local HitPrefab = require('prefabs.hit')
+local Prefabs = require('prefabs')
 
 function EnemySpawner.new(entities)
   local requiredComponentTypes = {
@@ -14,60 +14,6 @@ function EnemySpawner.new(entities)
   return Engine.System.new(EnemySpawner, entities, requiredComponentTypes)
 end
 
-local ENEMY_VELOCITY_X = 100
-local ENEMY_OFFSET_X   = 20
-local ENEMY_OFFSET_Y   = 150
-
-local function enemyCollided(entity, otherEntity, entities)
-  if otherEntity:get(Components.Bullet) then
-    local pos = entity:get(Engine.Components.Position)
-    local hit = HitPrefab.new(false, pos.x, pos.y, entities)
-    entities:add(hit)
-    entities:remove(entity)
-  end
-end
-
-local function createEnemy(isBlack)
-  local whiteAnimationImagePaths = {
-    'assets/white_enemy_idleanim_1.png',
-    'assets/white_enemy_idleanim_2.png',
-    'assets/white_enemy_idleanim_3.png',
-    'assets/white_enemy_idleanim_4.png',
-    'assets/white_enemy_idleanim_5.png',
-  }
-
-  local blackAnimationImagePaths = {
-    'assets/black_enemy_idleanim_1.png',
-    'assets/black_enemy_idleanim_2.png',
-    'assets/black_enemy_idleanim_3.png',
-    'assets/black_enemy_idleanim_4.png',
-    'assets/black_enemy_idleanim_5.png',
-  }
-
-  local animationImagePaths = isBlack and whiteAnimationImagePaths or blackAnimationImagePaths
-
-  local xVelocity = isBlack and ENEMY_VELOCITY_X or -ENEMY_VELOCITY_X
-  local imagePath = animationImagePaths[1]
-
-  local x = isBlack and - ENEMY_OFFSET_X or love.window.getWidth() + ENEMY_OFFSET_X
-  local y = ENEMY_OFFSET_Y + math.random() * (love.window.getHeight() - 2 * ENEMY_OFFSET_Y)
-
-  local xScale = isBlack and 0.6 or -0.6
-  local yScale = -0.6
-
-  local e = Engine.Entity.new()
-  e:add(Engine.Components.Position, x, y)
-  e:add(Engine.Components.Velocity, xVelocity, 0)
-  e:add(Engine.Components.Z, 1)
-  e:add(Engine.Components.Scale, xScale, yScale)
-  e:add(Engine.Components.Size, 160, 90)
-  e:add(Engine.Components.OnCollide, enemyCollided)
-  e:add(Components.CollisionGroup, 'enemy')
-  e:add(Engine.Components.Animation, animationImagePaths, 0.15)
-  e:add(Components.EnemyBehavior)
-  return e
-end
-
 function EnemySpawner:updateEntity(entity, dt)
   local enemySpawnerComponent = entity:get(Components.EnemySpawner)
 
@@ -75,8 +21,8 @@ function EnemySpawner:updateEntity(entity, dt)
   enemySpawnerComponent.maxCooldown =  3.0 - math.log(1 + math.log(1 + enemySpawnerComponent.lifetime)) / 2
 
   if enemySpawnerComponent.curCooldown <= 0 then
-    self.entities:add(createEnemy(true))
-    self.entities:add(createEnemy(false))
+    self.entities:add(Prefabs.createEnemy(true))
+    self.entities:add(Prefabs.createEnemy(false))
 
     enemySpawnerComponent.curCooldown = enemySpawnerComponent.curCooldown + enemySpawnerComponent.maxCooldown
   end

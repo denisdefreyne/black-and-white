@@ -3,7 +3,7 @@ local Engine = require('engine')
 local Gamestate = require('engine.vendor.hump.gamestate')
 
 local Components = require('components')
-local HitPrefab = require('prefabs.hit')
+local Prefabs = require('prefabs')
 
 local Input = {}
 Input.__index = Input
@@ -12,60 +12,14 @@ function Input.new(entities)
   return setmetatable({ entities = entities }, Input)
 end
 
-local BULLET_VELOCITY_X = 400
 local SCREEN_OFFSET = 100
-
-local function bulletCollided(entity, otherEntity, entities)
-  local originatingEntityCmp = entity:get(Components.OriginatingEntity)
-  if originatingEntityCmp and originatingEntityCmp.entity ~= otherEntity then
-    local pos = entity:get(Engine.Components.Position)
-    local hit = HitPrefab.new(false, pos.x, pos.y, entities)
-    entities:add(hit)
-    entities:remove(entity)
-  end
-end
-
-local function createBullet(entities, isBlack)
-  local animationImagePaths = {
-    'assets/bullet_idleanim_1.png',
-    'assets/bullet_idleanim_2.png',
-    'assets/bullet_idleanim_3.png',
-    'assets/bullet_idleanim_4.png',
-    'assets/bullet_idleanim_5.png',
-  }
-
-  local whitePlayer = entities:firstWithComponent(Components.WhitePlayer)
-  local blackPlayer = entities:firstWithComponent(Components.BlackPlayer)
-
-  local whitePosition = whitePlayer:get(Engine.Components.Position)
-  local blackPosition = blackPlayer:get(Engine.Components.Position)
-
-  local position  = isBlack and blackPosition or whitePosition
-  local imagePath = 'assets/bullet.png'
-  local xVelocity = isBlack and BULLET_VELOCITY_X or -BULLET_VELOCITY_X
-  local rotation  = isBlack and math.pi or 0
-  local originatingEntity = isBlack and blackPlayer or whitePlayer
-
-  local e = Engine.Entity.new()
-  e:add(Engine.Components.Position, position.x, position.y)
-  e:add(Engine.Components.Velocity, xVelocity, 0)
-  e:add(Engine.Components.Z, -1)
-  e:add(Engine.Components.Scale, 0.3)
-  e:add(Engine.Components.Rotation, rotation)
-  e:add(Engine.Components.OnCollide, bulletCollided)
-  e:add(Components.Bullet)
-  e:add(Components.CollisionGroup, 'bullet')
-  e:add(Components.OriginatingEntity, originatingEntity)
-  e:add(Engine.Components.Animation, animationImagePaths, 0.08)
-  return e
-end
 
 local function shoot(entities, whitePlayer, dt)
   local gunComponent = whitePlayer:get(Components.Gun)
 
   if love.keyboard.isDown(" ") and gunComponent.curCooldown <= 0 then
-    entities:add(createBullet(entities, true))
-    entities:add(createBullet(entities, false))
+    entities:add(Prefabs.createBullet(entities, true))
+    entities:add(Prefabs.createBullet(entities, false))
 
     gunComponent.curCooldown = gunComponent.curCooldown + gunComponent.maxCooldown
   end
