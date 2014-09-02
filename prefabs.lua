@@ -1,5 +1,6 @@
 local Engine = require('engine')
 local Components = require('components')
+local Gamestate = require('engine.vendor.hump.gamestate')
 
 local Prefabs = {}
 
@@ -58,6 +59,11 @@ local function playerCollided(entity, otherEntity, entities)
   end
 end
 
+local function gameOver()
+  local GameOverState = require('gamestates.game_over')
+  Gamestate.switch(GameOverState.new())
+end
+
 local PLAYER_OFFSET_X = 80
 
 function Prefabs.createBlackPlayer()
@@ -75,6 +81,7 @@ function Prefabs.createBlackPlayer()
   e:add(Components.Gun)
   e:add(Components.CollisionGroup, 'black')
   e:add(Components.Health, 5)
+  e:add(Components.OnDeath, gameOver)
   e:add(Engine.Components.OnCollide, playerCollided)
   e:add(Engine.Components.Rotation, math.pi)
   e:add(Engine.Components.Velocity, 0, 0)
@@ -98,6 +105,7 @@ function Prefabs.createWhitePlayer()
   e:add(Components.Gun)
   e:add(Components.CollisionGroup, 'white')
   e:add(Components.Health, 5)
+  e:add(Components.OnDeath, gameOver)
   e:add(Engine.Components.OnCollide, playerCollided)
   e:add(Engine.Components.Z, 0)
   e:add(Engine.Components.Velocity, 0, 0)

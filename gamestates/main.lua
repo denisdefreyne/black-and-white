@@ -5,7 +5,7 @@ local Components = require('components')
 local InputSystem             = require('systems.input')
 local OffscreenSystem         = require('systems.offscreen')
 local EnemySpawner            = require('systems.enemy_spawner')
-local GameOverSystem          = require('systems.game_over')
+local HealthSystem            = require('systems.health')
 local EnemyBehaviorSystem     = require('systems.enemy_behavior')
 local HealthTrackingSystem    = require('systems.health_tracking')
 
@@ -24,7 +24,7 @@ local function createArenaSpace(entities)
     Engine.Systems.ParticleSystem.new(entities),
     Engine.Systems.Rendering.new(entities),
     Engine.Systems.Physics.new(entities),
-    GameOverSystem.new(entities),
+    HealthSystem.new(entities),
   }
 
   return Engine.Space.new(entities, systems)
